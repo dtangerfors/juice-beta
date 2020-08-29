@@ -1,7 +1,5 @@
 import { createGlobalStyle } from "styled-components"
 
-import Cirka from "./assets/fonts/cirka-regular.otf"
-
 import screen from "./assets/mediaqueries"
 import variables from "./assets/variables"
 
@@ -19,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
 
 @font-face {
     font-family: "Cirka";
-    src: url(${Cirka});
+    src: url('https://files.dtangerfors.se/fonts/cirka-regular.otf');
     font-weight: 400;
 }
 
