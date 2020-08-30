@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components"
 import { Helmet } from "react-helmet"
 import { Link } from "gatsby"
-import {motion} from "framer-motion"
+import { motion } from "framer-motion"
 
 import { SecondaryHeading, Paragraph, Information } from "../components/typography"
 import OrderForm from "../components/OrderForm"
@@ -165,7 +165,7 @@ const SplitWrapper = styled.div`
 `
 const SplitContent = styled.div`
   width: 50%;
-  padding: 0 ${variables.padding.large};
+  padding: ${variables.padding.medium} ${variables.padding.large};
   text-align: left;
 
   @media ${screen.medium} {
@@ -191,6 +191,12 @@ const SplitImage = styled.img`
   }
 `
 
+const FormSplit = styled(SplitContent)`
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
 
 const H2 = styled(SecondaryHeading)`
     font-family: freight-display-pro, serif;
@@ -324,9 +330,9 @@ export default () => {
                             <Information>Betalning sker genom faktura med 14 dagars betalningsvillkor. Din beställning bekräftas genom mitt bekräftelsemail – har du önskemål om annan leveransadress eller dylikt kan detta ordnas i nästa steg.</Information>
                             <Information secondary>Obs! På grund av rådande pandemi skickas almanackorna endast genom post.</Information>
                         </SplitContent>
-                        <SplitContent>
+                        <FormSplit>
                             <OrderForm />
-                        </SplitContent>
+                        </FormSplit>
                     </SplitWrapper>
                 </Container>
             </Section>

@@ -49,8 +49,8 @@ const CountNumber = styled.input`
 class Button extends Component {
 
     disable() {
-        let { count, title } = this.props
-        if ((count === 0 && title === '-') || (count >= 5 && title === '+')) return true
+        let { count, title, status } = this.props
+        if ((count === 0 && title === '-') || (count >= 5 && title === '+') || (status === 'SUCCESS')) return true
     }
 
   render() {
@@ -81,7 +81,7 @@ export default class Counter extends Component {
 
   render() {
     let { count } = this.state;
-    let { name } = this.props;
+    let { name, status } = this.props;
 
     return( 
     <CounterWrap>
@@ -89,12 +89,14 @@ export default class Counter extends Component {
             title = { "-" }
             task = { () => this.decrementCount() }
             count = {count}
+            status = {status}
         />
         <CountNumber value={count} type="text" name={name} readOnly />
         <Button
             title = { "+" }
             task = { () => this.incrementCount() }
             count = {count}
+            status = {status}
         />
     </CounterWrap>)
   }

@@ -1,5 +1,5 @@
 <FilesMatch "\.(ttf|otf|eot|woff|woff2)$">
     <IfModule mod_headers.c>
-        Header set Access-Control-Allow-Origin "https://files.dtangerfors.se"
+        Header set Access-Control-Allow-Origin "https://files.dtangerfors.se/"
     </IfModule>
 </FilesMatch>

@@ -15,6 +15,7 @@ const Form = styled.form`
     padding: ${variables.padding.medium};
     display: flex;
     flex-wrap: wrap;
+    max-width: 45rem;
 
     @media ${screen.small} {
         padding: ${variables.padding.medium} ${variables.padding.small};
@@ -96,41 +97,6 @@ const Fieldset = styled.div`
     }
 `
 
-const Validation = styled.span`
-    -webkit-transition:all .3s;
-    transition: all .3s;
-
-    position: absolute;
-    right: 1rem;
-    top: calc(50% - .8rem);
-    transform: translateY(-50%);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 1.4rem;
-    height: 1.4rem;
-
-    border: 1px solid ${variables.color.green};
-    border-radius: 1rem;
-
-    opacity: 0;
-    visibility: hidden;
-
-    &::after {
-        content: '';
-        display: block;
-        width: 5px;
-        height: 8px;
-        border: 1px solid ${variables.color.green};
-        border-left: none;
-        border-top: none;
-
-        transform: rotate(45deg) translate(-1px, -1px);
-    }
-`
-
 const Submit = styled.input.attrs({ type: 'submit' })`
     -webkit-appearance: none;
     appearance: none;
@@ -191,6 +157,16 @@ export default class OrderForm extends Component {
         this.incrementCart = this.incrementCart.bind(this);
         this.decrementCart = this.decrementCart.bind(this);
     }
+
+    initialState = {
+        status: "",
+        customerName: '',
+        customerEmail: '',
+        customerStreetNumber: '',
+        customerPostalCode: '',
+        customerPostalTown: '',
+        inCart: 0
+    };
     
     handleChange(event) {
         const target = event.target;
@@ -212,7 +188,7 @@ export default class OrderForm extends Component {
         xhr.onreadystatechange = () => {
         if (xhr.readyState !== XMLHttpRequest.DONE) return;
         if (xhr.status === 200) {
-            form.reset();
+            this.setState(() => this.initialState)
             this.setState({ status: "SUCCESS" });
         } else {
             this.setState({ status: "ERROR" });
@@ -235,7 +211,7 @@ export default class OrderForm extends Component {
 
     render() {
 
-        let {customerEmail, customerName, customerPostalCode, customerPostalTown, customerStreetNumber, inCart} = this.state
+        let {customerEmail, customerName, customerPostalCode, customerPostalTown, customerStreetNumber, inCart, status} = this.state
 
         return (
             <Form 
@@ -247,18 +223,23 @@ export default class OrderForm extends Component {
                 <FormGroup>
                     <Fieldset>
                         <StaticLabel htmlFor="faroTotal">Fårö 2021</StaticLabel>
-                        <Counter incrementCart={this.incrementCart} decrementCart={this.decrementCart} name="faroTotal"/>
+                        <Counter incrementCart={this.incrementCart} decrementCart={this.decrementCart} status={status} name="faroTotal"/>
                     </Fieldset>
                     <Fieldset>
                         <StaticLabel htmlFor="gotlandTotal">Gotland 2021</StaticLabel>
-                        <Counter incrementCart={this.incrementCart} decrementCart={this.decrementCart} name="gotlandTotal"/>
+                        <Counter incrementCart={this.incrementCart} decrementCart={this.decrementCart} status={status} name="gotlandTotal"/>
                     </Fieldset>
                 </FormGroup>              
-                <FormGroup>
+                <FormGroup style={{
+                    height: status === "SUCCESS" ? '0' : null,
+                    visibility: status === "SUCCESS" ? 'hidden' : 'visible',
+                    opacity: status === "SUCCESS" ? 0 : 1,
+                    transformOrigin: 'top',
+                    transition: 'hidden 0s ease 0s, height .3s ease 0s, opacity .3s ease .3s',
+                }}>
                     <Fieldset>
                         <Input id="customerName" name="customerName" type="text" placeholder="Ditt namn" value={customerName} onChange={this.handleChange}/>
                         <Label htmlFor="customerName">Ditt namn</Label>
-                        <Validation />
                     </Fieldset>
                     <Fieldset>
                         <Input id="customerEmail" name="customerEmail" type="email" placeholder="Din email" value={customerEmail} onChange={this.handleChange}/>
@@ -283,10 +264,12 @@ export default class OrderForm extends Component {
                     opacity: inCart ? 1 : 0,
                     transformOrigin: 'top',
                     transition: 'hidden 0s ease 0s, height .3s ease 0s, opacity .3s ease .3s',
+                    display: status === "SUCCESS" ? 'none' : 'block'
                 }}>
                     <PriceSection inCart={inCart}/>
                 </FormGroup>
-                <Submit value="Lägg beställning" />
+                {status === "SUCCESS" ? <p style={{textAlign: 'center', width: '100%'}}>Tack för din beställning! :)</p> : <Submit value="Lägg beställning" />}
+                {status === "ERROR" && <p>Ooops! Ett fel uppstod, försök igen snart.</p>}
             </Form>
         )
     }
