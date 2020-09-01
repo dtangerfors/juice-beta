@@ -3,6 +3,8 @@ import styled from "styled-components"
 import { Helmet } from "react-helmet"
 import { Link } from "gatsby"
 import { motion } from "framer-motion"
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 
 import { SecondaryHeading, Paragraph, Information } from "../components/typography"
 import OrderForm from "../components/OrderForm"
@@ -11,8 +13,12 @@ import GlobalStyle from "../globalStyle"
 import variables from "../assets/variables";
 import screen from "../assets/mediaqueries"
 
-import img_violer from "../images/190614-farosund-violer.jpg"
-import img_damba from "../images/190805-damba-solnedgang.jpg"
+import gotland_preview from "../images/gotland-calendar2021.jpg"
+import gotland_preview1 from "../images/gotland-images-1.jpg"
+import gotland_preview2 from "../images/gotland-images-2.jpg"
+import faro_preview from "../images/faro-calendar2021.jpg"
+import faro_preview1 from "../images/faro-images-1.jpg"
+import faro_preview2 from "../images/faro-images-2.jpg"
 import img_husrygg from "../images/190805-husrygg-fiskelage.jpg"
 import img_husrygg_small from "../images/190805-husrygg-fiskelage-800.jpg"
 import icon_calendar from "../images/icons/icon-calendar.svg"
@@ -306,7 +312,19 @@ export default () => {
                             <H2>Fårö 2021</H2>
                             <Paragraph secondary>Med både kända och mindre kända motiv från Fårö har du här en fin almanacka fylld med säsongsbilder från Fårös säregna natur.</Paragraph>
                         </SplitContent>
-                        <SplitImage src={img_damba} alt="Solnedgång vid en äng i Dämba" />
+                        <SplitImage as="div">
+                            <Carousel showThumbs={false} autoPlay={true} showStatus={false}>
+                                <div>
+                                    <img src={faro_preview} alt="Fårö 2021"/>
+                                </div>
+                                <div>
+                                    <img src={faro_preview1} alt="Fårö 2021"/>
+                                </div>
+                                <div>
+                                    <img src={faro_preview2} alt="Fårö 2021"/>
+                                </div>
+                            </Carousel>
+                        </SplitImage>
                     </SplitWrapper>
                 </Container>
             </Section>
@@ -317,7 +335,19 @@ export default () => {
                             <H2>Gotland 2021</H2>
                             <Paragraph secondary>Almanacka med säsongsbilder runtom Gotland. Såväl kända som mindre kända motiv från Gotland och dess socknar.</Paragraph>
                         </SplitContent>
-                        <SplitImage src={img_violer} alt="Lupiner framför Fårösund i solnedgång" />
+                        <SplitImage as="div">
+                            <Carousel showThumbs={false} autoPlay={true} showStatus={false}>
+                                <div>
+                                    <img src={gotland_preview} alt="Gotland 2021"/>
+                                </div>
+                                <div>
+                                    <img src={gotland_preview1} alt="Gotland 2021"/>
+                                </div>
+                                <div>
+                                    <img src={gotland_preview2} alt="Gotland 2021"/>
+                                </div>
+                            </Carousel>
+                        </SplitImage>
                     </SplitWrapper>
                 </Container>
             </Section>
