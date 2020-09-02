@@ -45,32 +45,52 @@ const FixedHeader = styled.header`
     display: grid;
     align-items: center;
     height: 50vw;
+
+    @media ${screen.medium} {
+        height: auto;
+    }
 `
 
 const TitleWrap = styled(motion.div)`
     text-align: center;
     z-index: 2;
-    top: -10vw;
-    position: relative;
-`
-const StyledImg = styled.img`
+    top: 10vw;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
     position: absolute;
+
+    @media ${screen.medium} {
+        top: 15vw;
+    }
+`
+const StyledImg = styled.picture`
+    width: 100%;
+    position: relative;
+    z-index: 1;
+
+    & img {
+        width: 100%;
+    }
+
+    & source {
+        width: 100%;
+    }
 `
 
 const Title = styled(motion.h1)`
     font-family: freight-display-pro, serif;
     font-weight: 300;
-    font-size: 8vw;
+    font-size: 12rem;
     text-transform: uppercase;
     padding: 0;
     position: relative;
-    line-height: 8vw;
+    line-height: 12rem;
 
     &::before {
         content: '20';
         font-size: .5em;
-        line-height: 8vw;
+        line-height: inherit;
         vertical-align: top;
         margin-right: 1rem;
     }
@@ -78,13 +98,14 @@ const Title = styled(motion.h1)`
     &::after {
         content: '21';
         font-size: .5em;
-        line-height: 8vw;
+        line-height: inherit;
         vertical-align: top;
         margin-left: 1rem;
     }
 
     @media ${screen.small} {
-        font-size: 12vw;
+        font-size: 7rem;
+        line-height: 7rem;
     }
 `
 
@@ -95,7 +116,7 @@ const TitleSpan = styled(motion.span)`
 const Subtitle = styled.p`
     font-family: freight-display-pro, serif;
     font-weight: 300;
-    font-size: 1.5vw;
+    font-size: 2rem;
     font-style: italic;
 
     @media ${screen.small} {
@@ -282,7 +303,10 @@ export default () => {
                     </Title>
                     <Subtitle>Helårsalmanacka med vackra bilder från Gotland</Subtitle>
                 </TitleWrap>
-            <StyledImg srcSet={`${img_husrygg_small} 800w, ${img_husrygg} 1920w`} src={img_husrygg}/>
+                <StyledImg>
+                    <source media="(max-width: 768px)" srcset={img_husrygg_small} />
+                    <img srcset={img_husrygg} alt="Husryggs fiskeläge"/>
+                </StyledImg>
             </FixedHeader>
             <Section>
                 <Container>
@@ -313,7 +337,7 @@ export default () => {
                             <Paragraph secondary>Med både kända och mindre kända motiv från Fårö har du här en fin almanacka fylld med säsongsbilder från Fårös säregna natur.</Paragraph>
                         </SplitContent>
                         <SplitImage as="div">
-                            <Carousel showThumbs={false} autoPlay={true} showStatus={false}>
+                            <Carousel showThumbs={false} autoPlay={true} showStatus={false} infiniteLoop={true}>
                                 <div>
                                     <img src={faro_preview} alt="Fårö 2021"/>
                                 </div>
@@ -336,7 +360,7 @@ export default () => {
                             <Paragraph secondary>Almanacka med säsongsbilder runtom Gotland. Såväl kända som mindre kända motiv från Gotland och dess socknar.</Paragraph>
                         </SplitContent>
                         <SplitImage as="div">
-                            <Carousel showThumbs={false} autoPlay={true} showStatus={false}>
+                            <Carousel showThumbs={false} autoPlay={true} showStatus={false} infiniteLoop={true}>
                                 <div>
                                     <img src={gotland_preview} alt="Gotland 2021"/>
                                 </div>
