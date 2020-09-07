@@ -8,6 +8,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 import { SecondaryHeading, Paragraph, Information } from "../components/typography"
 import OrderForm from "../components/OrderForm"
+import CrossfadeHeader from "../components/CrossfadeHeader"
 
 import GlobalStyle from "../globalStyle"
 import variables from "../assets/variables";
@@ -19,14 +20,17 @@ import gotland_preview2 from "../images/gotland-images-2.jpg"
 import faro_preview from "../images/faro-calendar2021.jpg"
 import faro_preview1 from "../images/faro-images-1.jpg"
 import faro_preview2 from "../images/faro-images-2.jpg"
-import img_husrygg from "../images/190805-husrygg-fiskelage.jpg"
-import img_husrygg_small from "../images/190805-husrygg-fiskelage-800.jpg"
 import icon_calendar from "../images/icons/icon-calendar.svg"
 import icon_pin from "../images/icons/icon-pin.svg"
 import icon_layer from "../images/icons/icon-layer.svg"
 
 
-const transition = { duration: 1.4, ease: 0.3 };
+const transition = {
+    duration: 5,
+    ease: "easeInOut",
+    loop: Infinity,
+    repeatDelay: 5,
+  };
 
 const BodyContainer = styled.div`
   min-height: 100vh;
@@ -45,6 +49,7 @@ const FixedHeader = styled.header`
     display: grid;
     align-items: center;
     height: 50vw;
+    overflow: hidden;
 
     @media ${screen.medium} {
         height: auto;
@@ -64,21 +69,9 @@ const TitleWrap = styled(motion.div)`
         top: 15vw;
     }
 `
-const StyledImg = styled.picture`
-    width: 100%;
-    position: relative;
-    z-index: 1;
 
-    & img {
-        width: 100%;
-    }
 
-    & source {
-        width: 100%;
-    }
-`
-
-const Title = styled(motion.h1)`
+const Title = styled.h1`
     font-family: freight-display-pro, serif;
     font-weight: 300;
     font-size: 12rem;
@@ -107,10 +100,6 @@ const Title = styled(motion.h1)`
         font-size: 7rem;
         line-height: 7rem;
     }
-`
-
-const TitleSpan = styled(motion.span)`
-    display: inline-block;
 `
 
 const Subtitle = styled.p`
@@ -260,21 +249,8 @@ const Logo = styled.svg`
 `
 
 const list = {
-    hidden: { opacity: 1 },
-    show: {
-        opacity: 1,
-        transition: {
-            duration: 0.3,
-            delayChildren: 0.6,
-            staggerChildren: 0.1
-        }
-    }
-  }
-  
-  const item = {
-    hidden: { opacity: 0, y: -50 },
-    show: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, ...transition }
+    hidden: { opacity: 0, y: 0, x: '-50%' },
+    show: { opacity: [0, 0, 1, 1, 0], y: [0, 0, 0, 0, 50], x: '-50%' }
   }
 
 export default () => {
@@ -288,25 +264,23 @@ export default () => {
         <GlobalStyle />
         <BodyContainer>
             <FixedHeader>
-                <TitleWrap>
-                    <Title 
-                        variants={list}
-                        initial="hidden"
-                        animate="show">
-                        <TitleSpan variants={item}>G</TitleSpan>
-                        <TitleSpan variants={item}>o</TitleSpan>
-                        <TitleSpan variants={item}>t</TitleSpan>
-                        <TitleSpan variants={item}>l</TitleSpan>
-                        <TitleSpan variants={item}>a</TitleSpan>
-                        <TitleSpan variants={item}>n</TitleSpan>
-                        <TitleSpan variants={item}>d</TitleSpan>
-                    </Title>
+                <TitleWrap
+                    variants={list}
+                    initial="hidden"
+                    animate="show"
+                    transition={transition}>
+                    <Title>Gotland</Title>
                     <Subtitle>Helårsalmanacka med vackra bilder från Gotland</Subtitle>
                 </TitleWrap>
-                <StyledImg>
-                    <source media="(max-width: 768px)" srcset={img_husrygg_small} />
-                    <img srcset={img_husrygg} alt="Husryggs fiskeläge"/>
-                </StyledImg>
+                <TitleWrap
+                    variants={list}
+                    initial="hidden"
+                    animate="show"
+                    transition={{delay: 5, ...transition}}>
+                    <Title>Fårö</Title>
+                    <Subtitle>Helårsalmanacka med vackra bilder från Fårö</Subtitle>
+                </TitleWrap>
+                <CrossfadeHeader />
             </FixedHeader>
             <Section>
                 <Container>
