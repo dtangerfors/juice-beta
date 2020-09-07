@@ -23,6 +23,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import React from "react"
 import styled, { keyframes } from "styled-components"
+import rainbow from "../images/rainbow-square.jpg"
 
 const styles = {
   blob: "#ff5978",
@@ -65,6 +66,7 @@ position: absolute;
   height: 50vh;
   background-color: ${styles.blob};
   box-shadow: ${styles.shades};
+  background-size: cover;
 
   transform-origin: 50% 50%;
   transform-style: preserve-3d;
