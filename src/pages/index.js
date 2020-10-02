@@ -10,7 +10,7 @@ import SEO from "../components/seo"
 import {PrimaryHeading, Paragraph} from "../components/typography"
 
 import Blob from "../components/Blob";
-
+import meta_card from "../images/juice-meta-card.jpg"
 
 const TextWrapper = styled.header`
   position: relative;
@@ -45,7 +45,11 @@ const TextLink = styled.a`
 const IndexPage = () => (
   <Layout>
     <SEO title="Frontend developer based in Stockholm" />
-    <Helmet><link rel="stylesheet" href="https://use.typekit.net/xgf4jbu.css"/></Helmet>
+    <Helmet>
+      <link rel="stylesheet" href="https://use.typekit.net/xgf4jbu.css"/>
+      <meta property="og:image" content={meta_card}></meta>
+      <meta property="twitter:image" content={meta_card}></meta>
+      </Helmet>
     <TextWrapper>
     <PrimaryHeading>A driven and multifaceted frontend developer with a background in design and photography.</PrimaryHeading>
     <Paragraph 
