@@ -239,23 +239,23 @@ export default class OrderForm extends Component {
                     transition: 'hidden 0s ease 0s, height .3s ease 0s, opacity .3s ease .3s',
                 }}>
                     <Fieldset>
-                        <Input id="customerName" name="customerName" type="text" placeholder="Ditt namn" value={customerName} onChange={this.handleChange}/>
+                        <Input id="customerName" name="customerName" type="text" placeholder="Ditt namn" value={customerName} onChange={this.handleChange} required/>
                         <Label htmlFor="customerName">Ditt namn</Label>
                     </Fieldset>
                     <Fieldset>
-                        <Input id="customerEmail" name="customerEmail" type="email" placeholder="Din email" value={customerEmail} onChange={this.handleChange}/>
+                        <Input id="customerEmail" name="customerEmail" type="email" placeholder="Din email" value={customerEmail} onChange={this.handleChange} required/>
                         <Label htmlFor="customerName">Din mail</Label>
                     </Fieldset>
                     <Fieldset>
-                        <Input id="customerStreetNumber" name="customerStreetNumber" type="text" placeholder="Postadress" value={customerStreetNumber} onChange={this.handleChange}/>
+                        <Input id="customerStreetNumber" name="customerStreetNumber" type="text" placeholder="Postadress" value={customerStreetNumber} onChange={this.handleChange} required/>
                         <Label htmlFor="customerName">Postadress</Label>
                     </Fieldset>
                     <Fieldset half>
-                        <Input id="customerPostalCode" name="customerPostalCode" type="text" placeholder="Postnummer" value={customerPostalCode} onChange={this.handleChange}/>
+                        <Input id="customerPostalCode" name="customerPostalCode" type="text" placeholder="Postnummer" value={customerPostalCode} onChange={this.handleChange} required/>
                         <Label htmlFor="customerName">Postnummer</Label>
                     </Fieldset>
                     <Fieldset half>
-                        <Input id="customerPostalTown" name="customerPostalTown" type="text" placeholder="Stad" value={customerPostalTown} onChange={this.handleChange}/>
+                        <Input id="customerPostalTown" name="customerPostalTown" type="text" placeholder="Stad" value={customerPostalTown} onChange={this.handleChange} required/>
                         <Label htmlFor="customerName">Stad</Label>
                     </Fieldset>
                 </FormGroup>
